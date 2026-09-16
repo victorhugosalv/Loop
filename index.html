@@ -51,6 +51,7 @@ ol,ul{padding-left:22px;margin:0 0 12px}
 li{margin-bottom:6px}
 strong{font-weight:700}
 code,.mono{font-family:var(--mono);font-size:.9em}
+pre,code,.mono,.tcard,.code-badge{font-variant-ligatures:none;font-feature-settings:"liga" 0,"calt" 0}
 p code,li code,td code{background:#f3f0ea;border:1px solid #e2ddd3;border-radius:4px;padding:1px 5px}
 pre{background:var(--ink);color:#f2f2f2;border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);
   font-size:13.5px;line-height:1.6;margin:10px 0 14px;border-left:6px solid var(--yellow)}
@@ -78,6 +79,7 @@ pre .k{color:#FF8A65}.c{color:#8c8c8c}.s{color:#9CCC65}.n{color:#FFD54F}.f{color
 .mini{width:64px;height:88px;border:3px solid var(--ink);border-radius:9px;display:grid;place-items:center;color:#fff;
   font-family:var(--display);font-weight:700;font-size:22px;background:var(--ink);text-align:center;line-height:1}
 .mini.wild{background:conic-gradient(var(--c-red) 0 25%,var(--c-yellow) 0 50%,var(--c-green) 0 75%,var(--c-blue) 0);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill}
+.act > div{min-width:0}
 .act h4{margin:0;font-size:16px}
 .act .orig{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
 .act p{margin:4px 0 0;font-size:15px}
@@ -232,7 +234,7 @@ a{color:var(--red)}
 
 <section class="page" id="curingas">
   <h2>Curingas</h2>
-  <p>Podem ser jogados sobre qualquer carta. Todo curinga faz um <strong>Casting</strong>: quem joga <strong>escolhe o novo tipo</strong> (cor) da mesa.</p>
+  <p>Podem ser jogados sobre qualquer carta e todos fazem um <strong>Casting</strong>: mudam o tipo (cor) da mesa. Nos curingas de Bug, <strong>quem joga</strong> escolhe o novo tipo; na Roleta, quem escolhe é o <strong>jogador afetado</strong>.</p>
 
   <div class="act">
     <div class="mini wild">⇄+4</div>
