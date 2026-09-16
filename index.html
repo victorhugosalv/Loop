@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>LOOP — Manual do Jogo</title>
+<meta name="description" content="Manual do LOOP, o jogo da programação baseado no UNO No Mercy. BNCC Computação — 6º ano.">
+<meta name="theme-color" content="#D62B12">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Fredoka:wght@600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#D62B12; --red-dark:#A81E0B; --yellow:#F6C619; --ink:#141414; --paper:#FFFFFF; --muted:#5b5b5b;
+  --c-red:#E0392A; --c-yellow:#F2B80F; --c-green:#2E9C4A; --c-blue:#2563BE;
+  --display:"Fredoka","Comfortaa",ui-rounded,"Arial Rounded MT Bold",system-ui,sans-serif;
+  --body:"Comfortaa",ui-rounded,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,"SFMono-Regular",Consolas,monospace;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--red);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;
+  padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+.wrap{max-width:760px;margin:0 auto;padding-inline:16px}
+/* ---------- hero ---------- */
+.hero{position:relative;overflow:hidden;text-align:center;padding-block:64px 40px;color:#fff}
+.ribbon{position:absolute;top:26px;left:-58px;transform:rotate(-40deg);background:var(--ink);color:#fff;
+  font-family:var(--body);font-weight:700;padding:6px 70px;font-size:14px;letter-spacing:.04em}
+.logo{font-family:var(--display);font-weight:700;line-height:.9;margin:0}
+.outline{color:var(--yellow);-webkit-text-stroke:3px var(--ink);paint-order:stroke fill;text-shadow:5px 5px 0 var(--ink)}
+.logo .big{display:block;font-size:clamp(84px,24vw,150px);letter-spacing:.02em}
+.bar{display:inline-block;background:var(--ink);padding:4px 18px 8px;margin-top:10px;border-radius:6px}
+.bar span{font-family:var(--display);font-size:clamp(26px,7.5vw,44px);letter-spacing:.14em;color:var(--yellow)}
+.logo .sub{display:block;font-size:clamp(34px,10vw,58px);letter-spacing:.18em;margin-top:12px}
+.tag{margin:20px auto 0;max-width:30ch;font-size:18px;font-weight:700}
+.chip{display:inline-flex;gap:8px;align-items:center;margin-top:18px;background:#fff;color:var(--ink);
+  border:3px solid var(--ink);border-radius:999px;padding:6px 14px;font-weight:700;font-size:13px;box-shadow:3px 3px 0 var(--ink)}
+/* ---------- nav ---------- */
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ink);border-bottom:3px solid var(--yellow)}
+nav .wrap{display:flex;gap:8px;overflow-x:auto;padding-block:10px;scrollbar-width:none}
+nav .wrap::-webkit-scrollbar{display:none}
+nav a{flex:none;color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px;border:2px solid #444}
+nav a:hover,nav a:focus-visible{border-color:var(--yellow);color:var(--yellow);outline:none}
+/* ---------- pages ---------- */
+main{padding-block:24px 48px}
+.page{background:var(--paper);border:6px solid var(--ink);border-radius:6px;padding:26px 20px;margin-bottom:22px}
+h2{font-family:var(--body);color:var(--red);text-transform:uppercase;font-size:22px;margin:0 0 12px;letter-spacing:.01em}
+h3{font-family:var(--body);color:var(--red);font-size:17px;margin:22px 0 6px}
+p{margin:0 0 12px}
+ol,ul{padding-left:22px;margin:0 0 12px}
+li{margin-bottom:6px}
+strong{font-weight:700}
+code,.mono{font-family:var(--mono);font-size:.9em}
+p code,li code,td code{background:#f3f0ea;border:1px solid #e2ddd3;border-radius:4px;padding:1px 5px}
+pre{background:var(--ink);color:#f2f2f2;border-radius:8px;padding:14px 16px;overflow-x:auto;font-family:var(--mono);
+  font-size:13.5px;line-height:1.6;margin:10px 0 14px;border-left:6px solid var(--yellow)}
+pre .k{color:#FF8A65}.c{color:#8c8c8c}.s{color:#9CCC65}.n{color:#FFD54F}.f{color:#81D4FA}
+.box{border:3px solid var(--ink);border-radius:6px;padding:12px 14px;margin:10px 0}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.note{background:#FFF6D6;border:3px solid var(--ink);border-radius:6px;padding:10px 14px;font-size:14px;margin:12px 0}
+.meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:15px}
+.meta dt{font-weight:700;color:var(--red)} .meta dd{margin:0}
+.skill{display:flex;gap:12px;align-items:flex-start;margin:10px 0}
+.code-badge{flex:none;background:var(--ink);color:var(--yellow);font-family:var(--mono);font-weight:700;font-size:13px;padding:4px 8px;border-radius:4px}
+/* ---------- type cards ---------- */
+.types{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:14px 0}
+@media (min-width:620px){.types{grid-template-columns:repeat(4,1fr)}}
+.tcard{border:4px solid var(--ink);border-radius:14px;color:#fff;padding:12px 10px 14px;text-align:center;box-shadow:4px 4px 0 var(--ink);position:relative}
+.tcard .sym{position:absolute;top:6px;left:9px;font-size:15px;opacity:.9}
+.tcard .val{display:block;margin:10px auto 8px;background:#fff;color:var(--ink);border-radius:50%/40%;font-family:var(--mono);font-weight:700;
+  font-size:22px;padding:14px 4px;width:88%;transform:rotate(-8deg)}
+.tcard .ty{font-family:var(--mono);font-weight:700;font-size:15px}
+.tcard .pt{display:block;font-size:12px;opacity:.95}
+.t-red{background:var(--c-red)}.t-yellow{background:var(--c-yellow);color:var(--ink)}.t-green{background:var(--c-green)}.t-blue{background:var(--c-blue)}
+/* ---------- action list ---------- */
+.act{display:grid;grid-template-columns:64px 1fr;gap:12px;align-items:start;padding:14px 0;border-top:2px dashed #d7d2c7}
+.act:first-of-type{border-top:0}
+.mini{width:64px;height:88px;border:3px solid var(--ink);border-radius:9px;display:grid;place-items:center;color:#fff;
+  font-family:var(--display);font-weight:700;font-size:22px;background:var(--ink);text-align:center;line-height:1}
+.mini.wild{background:conic-gradient(var(--c-red) 0 25%,var(--c-yellow) 0 50%,var(--c-green) 0 75%,var(--c-blue) 0);-webkit-text-stroke:1.5px var(--ink);paint-order:stroke fill}
+.act h4{margin:0;font-size:16px}
+.act .orig{font-size:12px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.03em}
+.act p{margin:4px 0 0;font-size:15px}
+.act pre{margin:8px 0 0;font-size:12.5px}
+/* ---------- table ---------- */
+.tbl{overflow-x:auto;margin:8px 0}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:14px}
+th,td{border:2px solid var(--ink);padding:7px 9px;text-align:left;vertical-align:top}
+th{background:var(--ink);color:var(--yellow)}
+tr:nth-child(even) td{background:#faf7f0}
+/* ---------- steps ---------- */
+.steps{list-style:none;padding:0;counter-reset:s}
+.steps li{counter-increment:s;position:relative;padding:10px 12px 10px 52px;border:3px solid var(--ink);border-radius:8px;margin-bottom:10px}
+.steps li::before{content:counter(s);position:absolute;left:10px;top:9px;width:30px;height:30px;border-radius:50%;background:var(--red);color:#fff;
+  font-weight:700;display:grid;place-items:center;font-family:var(--display)}
+footer{text-align:center;color:#fff;font-size:13px;padding-bottom:30px}
+footer b{color:var(--yellow)}
+a{color:var(--red)}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="ribbon">Manual</div>
+  <h1 class="logo">
+    <span class="big outline">LOOP</span>
+    <span class="bar"><span>NO MERCY</span></span>
+    <span class="sub outline">REGRAS</span>
+  </h1>
+  <p class="tag">O jogo da programação: a mesa é o computador, e cada carta é uma linha de código.</p>
+  <span class="chip">BNCC Computação · 6º ano · Pensamento Computacional</span>
+</header>
+
+<nav aria-label="Seções">
+  <div class="wrap">
+    <a href="#objetivo">Objetivo</a>
+    <a href="#preparacao">Preparação</a>
+    <a href="#tipos">Tipos de dados</a>
+    <a href="#turno">Sua vez</a>
+    <a href="#acoes">Cartas de ação</a>
+    <a href="#curingas">Curingas</a>
+    <a href="#especiais">Regras especiais</a>
+    <a href="#exemplo">Exemplo</a>
+    <a href="#desafio">Desafio</a>
+    <a href="#cola">Cola rápida</a>
+    <a href="#bncc">BNCC</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<section class="page" id="objetivo">
+  <h2>Objetivo</h2>
+  <p>Seja o primeiro a <strong>terminar a execução</strong>, ou seja, zerar sua mão. Outra forma de vencer é ser o <strong>último processo rodando</strong> depois que todos os outros sofreram <em>Crash</em>.</p>
+  <h3>A ideia</h3>
+  <p>A mesa funciona como um <strong>compilador</strong>. Cada jogador adiciona uma linha de código (descarta uma carta) que precisa ser <strong>compatível</strong> com a anterior. Se ninguém consegue processar a informação, o sistema acusa erro e o jogador precisa <strong>alocar mais memória</strong> (comprar cartas).</p>
+  <dl class="meta">
+    <dt>Jogo base</dt><dd>UNO Show ’em No Mercy (168 cartas)</dd>
+    <dt>Jogadores</dt><dd>2 a 6 por baralho, com grupos de 4–6 alunos</dd>
+    <dt>Sua mão</dt><dd>= sua <strong>memória RAM</strong></dd>
+    <dt>Pilha de compras</dt><dd>= memória disponível</dd>
+  </dl>
+</section>
+
+<section class="page" id="preparacao">
+  <h2>Preparação</h2>
+  <ol class="steps">
+    <li>Escolha quem vai distribuir e embaralhe. O baralho é grande: se precisar, dividam para embaralhar.</li>
+    <li>Dê <strong>7 cartas</strong> para cada jogador. Essa é a memória inicial de cada processo.</li>
+    <li>Coloque o resto virado para baixo no centro. Essa é a <strong>PILHA DE COMPRAS</strong>.</li>
+    <li>Vire a carta de cima para formar a <strong>PILHA DE DESCARTE</strong> (a primeira linha do programa). Se for uma carta de ação, vire outra.</li>
+    <li>Quem está à esquerda de quem distribuiu começa, e o jogo segue no sentido horário.</li>
+  </ol>
+  <div class="note">🏷️ <strong>Material de apoio:</strong> cole nas cartas adesivos com o tipo de dado e o nome do comando, ou deixe a <a href="#cola">cola rápida</a> na mesa.</div>
+</section>
+
+<section class="page" id="tipos">
+  <h2>Tipos de dados (as cores)</h2>
+  <p>Cada cor é um <strong>tipo de dado</strong>. O número da carta é o <strong>valor</strong>, escrito do jeito que aquele tipo representa:</p>
+  <div class="types">
+    <div class="tcard t-red"><span class="sym" aria-hidden="true">●</span><span class="val">7</span><span class="ty">int</span><span class="pt">Inteiro</span></div>
+    <div class="tcard t-yellow"><span class="sym" aria-hidden="true">✦</span><span class="val">7.0</span><span class="ty">float</span><span class="pt">Decimal</span></div>
+    <div class="tcard t-blue"><span class="sym" aria-hidden="true">■</span><span class="val">"7"</span><span class="ty">String</span><span class="pt">Texto</span></div>
+    <div class="tcard t-green"><span class="sym" aria-hidden="true">▿</span><span class="val">false</span><span class="ty">boolean</span><span class="pt">Lógico</span></div>
+  </div>
+  <p><strong>Booleano:</strong> carta verde com número <strong>par</strong> vale <code>true</code>, e com número <strong>ímpar</strong> vale <code>false</code>.</p>
+  <h3>Quando posso jogar? (Type Checking)</h3>
+  <p>Sua carta é compatível se tiver <strong>o mesmo tipo</strong> (cor), <strong>o mesmo valor</strong> (número) ou <strong>o mesmo comando</strong> (símbolo).</p>
+  <div class="note">💬 <strong>Pergunta pra turma:</strong> um 🔴 <code>7</code> e um 🔵 <code>"7"</code> são iguais para o computador? No jogo pode, mas em muitas linguagens <code>7 == "7"</code> dá erro ou <code>false</code>. Isso é <strong>conversão de tipos</strong>.</div>
+  <p style="font-size:13px;color:var(--muted)">Os símbolos ● ✦ ▿ ■ já vêm impressos nas cartas para jogadores daltônicos.</p>
+</section>
+
+<section class="page" id="turno">
+  <h2>Sua vez</h2>
+  <p>Na sua vez, execute este algoritmo. Ele tem <strong>sequência</strong>, <strong>seleção</strong> (<code>se</code>) e <strong>repetição</strong> (<code>enquanto</code>):</p>
+<pre><span class="k">se</span> (tenhoCartaCompativel()) {
+    jogar(carta)            <span class="c">// adiciona uma linha ao código</span>
+} <span class="k">senão</span> {
+    <span class="k">enquanto</span> (!cartaCompativel(topo)) {
+        topo = <span class="f">comprar</span>()     <span class="c">// aloca memória</span>
+    }
+    jogar(topo)
+}
+<span class="k">se</span> (mao.tamanho == <span class="n">1</span>) <span class="f">gritar</span>(<span class="s">"PRINT!"</span>)
+<span class="k">se</span> (mao.tamanho >= <span class="n">25</span>) <span class="f">crash</span>()</pre>
+  <p>Se a pilha de compras acabar, embaralhe a pilha de descarte (menos a carta do topo) para formar uma nova.</p>
+</section>
+
+<section class="page" id="acoes">
+  <h2>Cartas de ação</h2>
+  <p>Cartas coloridas: o <strong>tipo</strong> (cor) delas também precisa combinar.</p>
+
+  <div class="act">
+    <div class="mini" style="background:var(--c-red)">⊘</div>
+    <div><span class="orig">Pular</span><h4>continue</h4>
+      <p>Pula <strong>uma iteração</strong>: o próximo jogador perde a vez.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-blue)">⇄</div>
+    <div><span class="orig">Inverter</span><h4>reverse()</h4>
+      <p>A lista de jogadores passa a ser percorrida em <strong>ordem reversa</strong>. Com 2 jogadores, funciona como <code>continue</code>.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-green)">⊘⊘</div>
+    <div><span class="orig">Pular a vez de todos</span><h4>lock() — prioridade máxima</h4>
+      <p>Seu processo <strong>trava o processador</strong>: todos os outros são pulados e você joga de novo.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-yellow);color:var(--ink)">🗑</div>
+    <div><span class="orig">Descartar tudo</span><h4>Garbage Collector</h4>
+      <p>Libera da sua memória <strong>todas as cartas do mesmo tipo</strong> (cor) dessa carta. Coloque-as embaixo dela.</p>
+<pre>mao.<span class="f">removerSe</span>(c <span class="k">→</span> c.cor == gc.cor)</pre></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-red)">+2<br>+4</div>
+    <div><span class="orig">Comprar 2 / Comprar 4</span><h4>Bug / Bug Crítico</h4>
+      <p>O próximo jogador compra 2 (ou 4) cartas e perde a vez, a não ser que <a href="#especiais">empilhe</a>.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-blue)">7</div>
+    <div><span class="orig">Troca 7</span><h4>swap(a, b)</h4>
+      <p>Ao jogar qualquer 7, você <strong>troca sua mão</strong> com a de um jogador que escolher. É como trocar as referências de duas variáveis. O jogo segue na ordem atual.</p>
+<pre><span class="f">swap</span>(minhaMao, maoDoOutro)</pre></div>
+  </div>
+  <div class="act">
+    <div class="mini" style="background:var(--c-green)">0</div>
+    <div><span class="orig">Passa 0</span><h4>Rotação de lista</h4>
+      <p>Ao jogar qualquer 0, <strong>todos</strong> passam a mão para o próximo jogador, no sentido atual. Cada mão anda uma posição na lista.</p>
+<pre>maos = <span class="f">rotacionar</span>(maos, <span class="n">1</span>)</pre></div>
+  </div>
+</section>
+
+<section class="page" id="curingas">
+  <h2>Curingas</h2>
+  <p>Podem ser jogados sobre qualquer carta. Todo curinga faz um <strong>Casting</strong>: quem joga <strong>escolhe o novo tipo</strong> (cor) da mesa.</p>
+
+  <div class="act">
+    <div class="mini wild">⇄+4</div>
+    <div><span class="orig">Curinga Inverter Comprar 4</span><h4>reverse() + Bug Crítico + Casting</h4>
+      <p>Inverte a direção, e o próximo jogador (na nova direção) compra 4 e perde a vez. Com 2 jogadores, quem jogou é que compra 4, mas pode empilhar para devolver.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini wild">+6</div>
+    <div><span class="orig">Curinga Comprar 6</span><h4>Bug Fatal + Casting</h4>
+      <p>O próximo jogador compra 6 e perde a vez.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini wild">+10</div>
+    <div><span class="orig">Curinga Comprar 10</span><h4>Bug Fatal + Casting</h4>
+      <p>O próximo jogador compra 10 e perde a vez.</p></div>
+  </div>
+  <div class="act">
+    <div class="mini wild">🎯</div>
+    <div><span class="orig">Curinga Roleta Colorida</span><h4>while loop</h4>
+      <p><strong>O próximo jogador (o afetado)</strong> escolhe um tipo. Ele revela cartas da pilha, uma por vez, <strong>enquanto</strong> não aparecer aquele tipo (curingas não contam). Fica com todas as cartas reveladas e perde a vez. O jogo segue no tipo escolhido.</p>
+<pre>tipo = afetado.<span class="f">escolher</span>()
+<span class="k">faça</span> {
+    carta = <span class="f">comprar</span>()
+} <span class="k">enquanto</span> (carta.cor != tipo <span class="k">ou</span> carta.ehCuringa)
+<span class="f">perderVez</span>()</pre></div>
+  </div>
+</section>
+
+<section class="page" id="especiais">
+  <h2>Regras especiais</h2>
+
+  <div class="box">
+    <h3 style="margin-top:0">🖨️ PRINT!</h3>
+    <p>Quando ficar com <strong>1 carta</strong>, grite <strong>“PRINT!”</strong> (a saída no terminal). Se outro jogador gritar antes de você, e antes de o próximo começar a vez, é <strong>Erro de Sintaxe</strong>: compre 2 cartas.</p>
+  </div>
+
+  <div class="box">
+    <h3 style="margin-top:0">📚 Stack Overflow (empilhamento)</h3>
+    <p>Se alguém jogar um <strong>Bug</strong> (+2, +4, +6, +10) em você, você pode <strong>empilhar</strong> jogando outro Bug de <strong>valor igual ou maior</strong>. As penalidades se somam e passam adiante. O primeiro que não conseguir empilhar sofre o <strong>Stack Overflow</strong>: compra <strong>tudo</strong> o que foi acumulado e perde a vez.</p>
+<pre>pilha = <span class="n">0</span>
+<span class="k">enquanto</span> (jogador.<span class="f">temBug</span>(valor >= ultimo)) {
+    pilha += jogador.<span class="f">jogarBug</span>()
+    jogador = <span class="f">proximo</span>()
+}
+jogador.<span class="f">comprar</span>(pilha)   <span class="c">// Stack Overflow!</span></pre>
+  </div>
+
+  <div class="box">
+    <h3 style="margin-top:0">💥 Crash do Sistema (Misericórdia)</h3>
+    <p>Com <strong>25 cartas ou mais</strong> na mão, a memória estoura: <strong>Crash</strong> (tela azul). O jogador está <strong>fora do jogo</strong>. As cartas dele ficam separadas até a pilha de compras acabar.</p>
+  </div>
+
+  <h3>Como vencer</h3>
+  <p>Vence quem jogar a última carta <strong>ou</strong> quem for o último processo rodando.</p>
+  <details>
+    <summary><strong>Pontuação (opcional)</strong></summary>
+    <ul style="margin-top:8px">
+      <li>Cartas numéricas: o próprio valor</li>
+      <li>Cartas de ação coloridas: 20 pontos</li>
+      <li>Curingas: 50 pontos</li>
+      <li>Cada jogador que sofreu Crash: +250 pontos</li>
+      <li>Vence quem chegar a 1000 pontos primeiro</li>
+    </ul>
+  </details>
+</section>
+
+<section class="page" id="exemplo">
+  <h2>Exemplo: a cascata de bugs</h2>
+  <ol class="steps">
+    <li><strong>Jogador A</strong> joga um 🔴 <strong>Bug Crítico +4</strong> (tipo <code>int</code>).</li>
+    <li><strong>Jogador B</strong> empilha com um <strong>Curinga Bug Fatal +6</strong> e faz um Casting para 🔵 <code>String</code>. A pilha agora vale <strong>10</strong>.</li>
+    <li><strong>Jogador C</strong>, que já tinha <strong>16 cartas</strong>, não tem nenhum Bug +6 ou maior. É <strong>Stack Overflow</strong>: ele compra as 10 cartas e perde a vez.</li>
+    <li>C fica com <strong>26 cartas</strong> (≥ 25). <strong>Crash do Sistema!</strong> C está fora do jogo.</li>
+  </ol>
+<pre><span class="c">// rastreando a execução</span>
+pilha = <span class="n">4</span>          <span class="c">// A: Bug Crítico</span>
+pilha = <span class="n">4</span> + <span class="n">6</span>      <span class="c">// B: empilhou → 10</span>
+C.mao = <span class="n">16</span> + <span class="n">10</span>    <span class="c">// = 26</span>
+<span class="k">se</span> (C.mao >= <span class="n">25</span>) <span class="f">crash</span>(C)  <span class="c">// 💥</span></pre>
+</section>
+
+<section class="page" id="desafio">
+  <h2>Desafio pós-jogo: programe uma carta</h2>
+  <p>Agora é a vez de vocês <strong>elaborarem</strong> o algoritmo. Em grupo, escolham uma carta ou regra e escrevam o código dela em pseudocódigo, Scratch ou Python. O código precisa usar pelo menos:</p>
+  <div class="two">
+    <div class="box"><strong>Sequência</strong><br>passos em ordem</div>
+    <div class="box"><strong>Seleção</strong><br><code>se</code> / <code>senão</code></div>
+    <div class="box"><strong>Repetição</strong><br><code>enquanto</code> / <code>para</code></div>
+    <div class="box"><strong>Tipos de dados</strong><br><code>int</code>, <code>float</code>, <code>String</code>, <code>boolean</code></div>
+  </div>
+  <p><strong>Sugestões:</strong> Roleta Colorida · Stack Overflow · Garbage Collector · o turno completo · checar se uma carta verde é <code>true</code> ou <code>false</code>.</p>
+<pre><span class="c"># exemplo em Python: Garbage Collector</span>
+mao = [(<span class="s">"vermelho"</span>, <span class="n">7</span>), (<span class="s">"azul"</span>, <span class="n">3</span>), (<span class="s">"vermelho"</span>, <span class="n">2</span>)]
+cor_gc = <span class="s">"vermelho"</span>
+nova_mao = []
+<span class="k">for</span> carta <span class="k">in</span> mao:
+    <span class="k">if</span> carta[<span class="n">0</span>] != cor_gc:
+        nova_mao.append(carta)
+<span class="f">print</span>(nova_mao)   <span class="c"># [('azul', 3)]</span></pre>
+</section>
+
+<section class="page" id="cola">
+  <h2>Cola rápida</h2>
+  <div class="tbl">
+  <table>
+    <thead><tr><th>Carta original</th><th>No LOOP</th><th>Conceito</th></tr></thead>
+    <tbody>
+      <tr><td>🔴 🟡 🔵 🟢</td><td>int · float · String · boolean</td><td>Tipos de dados</td></tr>
+      <tr><td>Gritar “UNO!”</td><td>PRINT!</td><td>Saída / erro de sintaxe</td></tr>
+      <tr><td>Pular</td><td><code>continue</code></td><td>Pular iteração</td></tr>
+      <tr><td>Inverter</td><td><code>reverse()</code></td><td>Percorrer ao contrário</td></tr>
+      <tr><td>Pular a vez de todos</td><td><code>lock()</code></td><td>Prioridade / concorrência</td></tr>
+      <tr><td>Descartar tudo</td><td>Garbage Collector</td><td>Liberar memória por filtro</td></tr>
+      <tr><td>+2 / +4 / +6 / +10</td><td>Bugs</td><td>Erros que se acumulam</td></tr>
+      <tr><td>Empilhamento</td><td>Stack Overflow</td><td>Pilha / acúmulo</td></tr>
+      <tr><td>Escolher cor (curingas)</td><td>Casting</td><td>Conversão de tipos</td></tr>
+      <tr><td>Roleta Colorida</td><td><code>while</code></td><td>Repetição com condição</td></tr>
+      <tr><td>Troca 7</td><td><code>swap(a, b)</code></td><td>Troca de referências</td></tr>
+      <tr><td>Passa 0</td><td><code>rotacionar()</code></td><td>Rotação de lista</td></tr>
+      <tr><td>25+ cartas</td><td>Crash</td><td>Estouro de memória</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section class="page" id="bncc">
+  <h2>BNCC Computação</h2>
+  <dl class="meta">
+    <dt>Etapa</dt><dd>Ensino Fundamental – Anos Finais · <strong>6º ano</strong></dd>
+    <dt>Eixo</dt><dd>Pensamento Computacional</dd>
+  </dl>
+  <div class="skill"><span class="code-badge">EF06CO01</span><p>Classificar informações, agrupando-as em coleções (conjuntos) e associando cada coleção a um “tipo de dados”.</p></div>
+  <div class="skill"><span class="code-badge">EF06CO02</span><p>Elaborar algoritmos que envolvam instruções sequenciais, de repetição e de seleção usando uma linguagem de programação.</p></div>
+  <h3>Objetivo de aprendizagem</h3>
+  <p>Jogando como um “compilador”, os alunos classificam valores em tipos de dados (inteiro, decimal, texto e booleano) e fazem <em>type checking</em> a cada jogada. Eles vivenciam com o corpo como sequência, seleção e repetição controlam o fluxo de um programa e como o mau gerenciamento de memória leva a um <em>Crash</em>. No desafio pós-jogo, <strong>elaboram</strong> esses algoritmos em uma linguagem de programação.</p>
+</section>
+
+</main>
+
+<footer>
+  <p><b>LOOP</b> — O Jogo da Programação · Edição No Mercy<br>
+  Victor Hugo Salviano · Gabriel Cardoso · Cíntia Maria Alcari · Maviael Rosendo · Luan Felipe Sousa de Carvalho · Marcone Inocêncio da Silva Segundo</p>
+  <p style="opacity:.8">Adaptação educacional baseada nas regras do UNO Show ’em No Mercy. UNO é marca registrada da Mattel.</p>
+</footer>
+</body>
+</html>
